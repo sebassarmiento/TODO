@@ -19,8 +19,13 @@ class App extends Component {
     this.setState({data: [...this.state.data, this.state.task], task: ''})
   }
 
+  handleDelete(i){
+    this.setState({data: this.state.data.filter((task, index) => index !== i) })
+  }
+
   render() {
     return (
+      <React.Fragment>
       <div className="main-container">
         <p className="task-text" >Task:</p>
         <div className="task-adder" >
@@ -28,9 +33,10 @@ class App extends Component {
           <button onClick={() => this.handleClick()} className="add-btn" >Add</button>
         </div>
         {this.state.data.map((task, index) => {
-          return (<Task number={index} taskName={task} />)
+          return (<Task delete={(index) => this.handleDelete(index)} number={index} taskName={task} />)
         })}
       </div>
+      </React.Fragment>
     );
   }
 }
